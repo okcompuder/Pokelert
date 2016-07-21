@@ -1,7 +1,7 @@
 # Pokémon Go Slack Bot
 
 This is a Python application used to notify a Slack channel about nearby desired Pokémon.
-The project is based on [configurable notifying PokemonGo-Finder](https://github.com/jxmorris12/PokemonGo-Finder), a fork of [the popular PokemonGo-Map repository](https://github.com/AHAAAAAAA/PokemonGo-Map).
+The project is based on [PokemonGo-Finder](https://github.com/jxmorris12/PokemonGo-Finder), a fork of [the popular PokemonGo-Map repository](https://github.com/AHAAAAAAA/PokemonGo-Map).
 
 ## Config File
 All arguments are read from a `config.json` file. In addition to all of the options laid out [here](https://github.com/AHAAAAAAA/PokemonGo-Map/wiki/Usage), I've introduced two required fields: `slack_api_token`, your Slack API key, and `notify`, a comma-separated list of the Pokemon that you'd like to receive Pushbullet notifications for.
