@@ -100,7 +100,7 @@ def parse_unicode(bytestring):
 
 
 def debug(message):
-    if DEBUG:
+    if args.debug:
         print '[-] {}'.format(message)
 
 
@@ -437,7 +437,6 @@ def get_token(service, username, password):
 def get_args():
     # load default args
     default_args = {
-        "DEBUG": True,
         "ampm_clock": False,
         "auth_service": "ptc",
         "auto_refresh": None,
@@ -875,4 +874,4 @@ def get_map():
 if __name__ == '__main__':
     args = get_args()
     register_background_thread(initial_registration=True)
-    app.run(debug=True, threaded=True, host=args.host, port=args.port)
+    app.run(debug=args.debug, threaded=True, host=args.host, port=args.port)
