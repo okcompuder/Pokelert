@@ -31,7 +31,7 @@ def pokemon_found(pokemon):
     # get name
     pokename = _str(pokemon["name"]).lower()
     # check array
-    if not slack_client or not pokename in wanted_pokemon: return
+    if not slack_client or not (pokename in wanted_pokemon or '*' in wanted_pokemon) : return
     # notify
     print "[+] Notifier found pokemon:", pokename
     gMaps = "http://maps.google.com/maps?q=" + str(pokemon["lat"]) + "," + str(pokemon["lng"]) + "&24z"
