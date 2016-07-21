@@ -441,7 +441,7 @@ def get_args():
         "auth_service": "ptc",
         "auto_refresh": None,
         "china": False,
-        "debug": False,
+        "debug": True,
         "display_gym": False,
         "display_pokestop": False,
         "host": "127.0.0.1",
