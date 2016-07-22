@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import flask
-import notifier
+import slack
 from flask import Flask, render_template
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
@@ -435,6 +435,7 @@ def get_token(service, username, password):
         return global_token
 
 def get_args():
+    global wanted_pokemon
     # load default args
     default_args = {
         "ampm_clock": False,
@@ -455,6 +456,10 @@ def get_args():
     # load config file
     with open('config.json') as data_file:
         data = json.load(data_file)
+        # get list of pokemon to send notifications for
+        wanted_pokemon = _str( data["notify"] ) . split(",")
+        # transform to lowercase
+        wanted_pokemon = [a.lower() for a in wanted_pokemon]
         for key in data:
             default_args[key] = str(data[key])
         # create namespace obj
@@ -588,6 +593,9 @@ def main():
 
     register_background_thread()
 
+# Safely parse incoming strings to unicode ----------------- TODO
+def _str(s):
+    return s.encode('utf-8').strip()
 
 def process_step(args, api_endpoint, access_token, profile_response,
                  pokemonsJSON, ignore, only):
@@ -671,7 +679,21 @@ transform_from_wgs_to_gcj(Location(Fort.Latitude, Fort.Longitude))
         }
 
         if poke.SpawnPointId not in pokemons:
-            notifier.pokemon_found(pokemon_obj)
+            pokename = _str(pokemon_obj["name"]).lower()
+            # check array
+            if not (pokename in wanted_pokemon or '*' in wanted_pokemon) : return
+            # notify
+            print "[+] Notifier found pokemon:", pokename
+            gMaps = "http://maps.google.com/maps?q=" + str(pokemon_obj["lat"]) + "," + str(pokemon_obj["lng"]) + "&24z"
+            disappear_time = str(datetime.fromtimestamp(pokemon_obj["disappear_time"]).strftime("%I:%M%p").lstrip('0'))
+            notification_text = "Pokémon Located!"
+            notification_attachment = [
+                {
+                    "text": u'A wild {0} was found nearby and will disappear at {1}! \n <{2}|Map>'.format(pokemon_obj["name"], disappear_time, gMaps),
+        			"thumb_url": "http://pogo.ethanhoneycutt.com/static/larger-icons/" + str(pokemon_obj["id"]) +".png"
+                }
+            ]
+            slack.sendPostMsg(notification_text, notification_attachment)
 
         pokemons[poke.SpawnPointId] = pokemon_obj
 
