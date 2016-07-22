@@ -1,4 +1,5 @@
 import json
+from configure import get_args
 from slackclient import SlackClient
 
 slack_client = None
@@ -17,7 +18,8 @@ def init():
 def _str(s):
     return s.encode('utf-8').strip()
 
-def sendPostMsg(notification_text, notification_attachment = None):
-    slack_client.api_call("chat.postMessage", channel="#pokedev", as_user=True, text=notification_text, attachments=notification_attachment)
+def sendPostMsg(notification_text, notification_attachment=None, channels=None):
+    for channel in channels:
+        slack_client.api_call("chat.postMessage", channel=channel, as_user=True, text=notification_text, attachments=notification_attachment)
 
 init()

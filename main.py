@@ -435,13 +435,14 @@ def get_token(service, username, password):
         return global_token
 
 def get_args():
-    global wanted_pokemon
+    global wanted_pokemon, channels
     # load default args
     default_args = {
         "ampm_clock": False,
         "auth_service": "ptc",
         "auto_refresh": None,
         "china": False,
+        "channels": None,
         "debug": True,
         "display_gym": False,
         "display_pokestop": False,
@@ -457,9 +458,9 @@ def get_args():
     with open('config.json') as data_file:
         data = json.load(data_file)
         # get list of pokemon to send notifications for
-        wanted_pokemon = _str( data["notify"] ) . split(",")
-        # transform to lowercase
-        wanted_pokemon = [a.lower() for a in wanted_pokemon]
+        wanted_pokemon = [a.lower() for a in _str( data["notify"] ) . split(",")]
+        channels = data["channels"].split(",")
+
         for key in data:
             default_args[key] = str(data[key])
         # create namespace obj
@@ -681,7 +682,7 @@ transform_from_wgs_to_gcj(Location(Fort.Latitude, Fort.Longitude))
         if poke.SpawnPointId not in pokemons:
             pokename = _str(pokemon_obj["name"]).lower()
             # check array
-            if not (pokename in wanted_pokemon or '*' in wanted_pokemon) : return
+            if not (pokename in wanted_pokemon or '*' in wanted_pokemon) : continue
             # notify
             print "[+] Notifier found pokemon:", pokename
             gMaps = "http://maps.google.com/maps?q=" + str(pokemon_obj["lat"]) + "," + str(pokemon_obj["lng"]) + "&24z"
@@ -693,7 +694,7 @@ transform_from_wgs_to_gcj(Location(Fort.Latitude, Fort.Longitude))
         			"thumb_url": "http://pogo.ethanhoneycutt.com/static/larger-icons/" + str(pokemon_obj["id"]) +".png"
                 }
             ]
-            slack.sendPostMsg(notification_text, notification_attachment)
+            slack.sendPostMsg(notification_text, notification_attachment, channels)
 
         pokemons[poke.SpawnPointId] = pokemon_obj
 
