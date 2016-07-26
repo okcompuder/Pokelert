@@ -14,6 +14,6 @@ if __name__ == '__main__':
     config = yaml.load(open(args.config or 'config.yaml', 'r'))
     plbot = PokelertBot(config)
     try:
-        plbot._start()
+        plbot.start()
     except KeyboardInterrupt:
         sys.exit()
