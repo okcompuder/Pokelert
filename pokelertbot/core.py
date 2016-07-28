@@ -62,10 +62,14 @@ class PokelertBot(object):
 
     def generate_alert(self, pokemon):
         gmaps = 'http://maps.google.com/maps?q={},{}&24z'.format(pokemon['latitude'], pokemon['longitude'])
-        time = pokemon['disappear_time']
+        time = self.format_time(pokemon['disappear_time'])
         text = "A wild {} was found nearby and will disappear at {}! \n<{}|Map>".format(pokemon['pokemon_name'], time, gmaps)
         img = 'http://pogo.ethanhoneycutt.com/static/larger-icons/{}.png'.format(pokemon['pokemon_id'])
         return { 'message': "Alert!", 'attachments': [{ 'text': text, 'thumb_url': img}]}
+        
+    def format_time(self, timestamp):
+        time = str(datetime.fromtimestamp(timestamp / 1e3).strftime("%I:%M%p").lstrip('0'))
+        return time
 
     def retrieve_pokemon(self):
         URL = self.config.get('ENDPOINT_URL') + '/raw_data?gyms=false&pokestops=false&scanned=false'
