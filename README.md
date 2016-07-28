@@ -20,4 +20,4 @@ CHANNELS: ['pogo']
 ```
 
 ## Use
-Run *main.py* to begin initiate bot in channel
+Run *main.py* to activate bot in channel
