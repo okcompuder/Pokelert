@@ -33,7 +33,7 @@ class PokelertBot(object):
     def send_message(self, message, attachments=None, channel=None):
         if channel is None:
             for channel in self.channels:
-                self.sc.api_call('chat.postMessage', channel=channel, text=message, as_user=True, attachments=attachments)
+                self.sc.api_call('chat.postMessage', channel=channel, text=message, as_user=True, attachments=attachments, mrk_dwn=True)
         else:
             self.sc.api_call('chat.postMessage', channel=channel, text=message, as_user=True, attachments=attachments)
 
@@ -61,17 +61,23 @@ class PokelertBot(object):
             self.send_message(message_dict['text'], attachments=message_dict['attachments'])
 
     def generate_message(self, pokemon):
-        text = u'Wild *{}* appeared!'.format(pokemon['pokemon_name']) 
+        name = pokemon['pokemon_name']
+        id = str(pokemon['pokemon_id']).zfill(3)
+        url = 'https://fevgames.net/pokedex/{}-{}/'.format(id, name)
+        
+        text = u'Wild *<{}|{}>* appeared!'.format(url, name) 
         attachments = self.generate_attachments(pokemon)
         return { 'text': text, 'attachments': attachments}
         
     def generate_attachments(self, pokemon):
         attachments = \
         [{
-            'fallback': 'Error',
-            'color': '#309SB4',            
-            'fields': self.generate_fields(pokemon),
-            'thumb_url': 'http://pogo.ethanhoneycutt.com/static/larger-icons/{}.png'.format(pokemon['pokemon_id']) 
+            'fallback':'Error',
+            'color':'#439FE0',            
+            'fields':self.generate_fields(pokemon),
+            'thumb_url':'http://pogo.ethanhoneycutt.com/static/larger-icons/{}.png'.format(pokemon['pokemon_id']),
+            'footer':'<{}|Github>'.format('https://github.com/okcompuder/Pokelert'),
+            'footer_icon':'http://androidforum.cz/images/icons/hw/ext/pokemon_go.png'
         }]
         return attachments
         
@@ -80,8 +86,11 @@ class PokelertBot(object):
         location = "<{}|Map>".format(gmaps)        
         time = self.format_time(pokemon['disappear_time'])
                
-        fields = [{ 'title': 'Location', 'value': location, 'short': True }, 
-                  { 'title': 'Time Remaining', 'value': time }]
+        fields = [{ 'title':'Location', 'value':location, 'short':'true' }, 
+                  { 'title':'Time Remaining', 'value':time, 'short':'true' },
+                  { 'title':'Type', 'value':'Kanto', 'short':'true' },
+                  { 'title':'Attack/Defense/Stamina', 'value':'94/90/80', 'short':'true' }
+                  ]
         return fields
         
     def format_time(self, timestamp):
