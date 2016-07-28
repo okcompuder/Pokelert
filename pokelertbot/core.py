@@ -57,18 +57,38 @@ class PokelertBot(object):
 
     def alert_slack(self):
         for p in self.new_pokemon():
-            message_dict = self.generate_alert(p)
-            self.send_message(message_dict['message'], attachments=message_dict['attachments'])
+            message_dict = self.generate_message(p)
+            self.send_message(message_dict['text'], attachments=message_dict['attachments'])
 
-    def generate_alert(self, pokemon):
+    def generate_message(self, pokemon):
+        text = u'Wild *{}* appeared!'.format(pokemon['pokemon_name']) 
+        attachments = self.generate_attachments(pokemon)
+        return { 'text': text, 'attachments': attachments}
+        
+    def generate_attachments(self, pokemon):
+        attachments = \
+        [{
+            'fallback': 'Error',
+            'color': '#309SB4',            
+            'fields': self.generate_fields(pokemon),
+            'thumb_url': 'http://pogo.ethanhoneycutt.com/static/larger-icons/{}.png'.format(pokemon['pokemon_id']) 
+        }]
+        return attachments
+        
+    def generate_fields(self, pokemon):
         gmaps = 'http://maps.google.com/maps?q={},{}&24z'.format(pokemon['latitude'], pokemon['longitude'])
+        location = "<{}|Map>".format(gmaps)        
         time = self.format_time(pokemon['disappear_time'])
-        text = "A wild {} was found nearby and will disappear at {}! \n<{}|Map>".format(pokemon['pokemon_name'], time, gmaps)
-        img = 'http://pogo.ethanhoneycutt.com/static/larger-icons/{}.png'.format(pokemon['pokemon_id'])
-        return { 'message': "Alert!", 'attachments': [{ 'text': text, 'thumb_url': img}]}
+               
+        fields = [{ 'title': 'Location', 'value': location, 'short': True }, 
+                  { 'title': 'Time Remaining', 'value': time }]
+        return fields
         
     def format_time(self, timestamp):
-        time = str(datetime.fromtimestamp(timestamp / 1e3).strftime("%I:%M%p").lstrip('0'))
+        seconds = (datetime.fromtimestamp(timestamp / 1e3) - datetime.now()).total_seconds()
+        minutes = (seconds % 3600) // 60
+        seconds = seconds % 60
+        time = "%i Minutes %i Seconds" % (minutes, seconds)
         return time
 
     def retrieve_pokemon(self):
