@@ -27,12 +27,13 @@ def nearby_attachments(pokemon):
 
 def nearby_fields(pokemon):
     gmaps = 'http://maps.google.com/maps?q={},{}&24z'.format(pokemon['latitude'], pokemon['longitude'])
-    location = "<{}|Map>".format(gmaps)
+    location = '<{}|Map>'.format(gmaps)
     time = format_time(pokemon['disappear_time'])
+    types = ' '.join(pokemon['pokedex_info']['Types'])
 
     fields = [{ 'title':'Location', 'value':location, 'short':'true' },
               { 'title':'Time Remaining', 'value':time, 'short':'true' },
-              { 'title':'Type', 'value':'Kanto', 'short':'true' },
+              { 'title':'Type', 'value':types, 'short':'true' },
               { 'title':'Attack/Defense/Stamina', 'value':'94/90/80', 'short':'true' }
              ]
     return fields

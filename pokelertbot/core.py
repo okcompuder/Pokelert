@@ -5,7 +5,8 @@ from slackclient import SlackClient
 
 class PokelertBot(object):
 
-    def __init__(self, config):
+    def __init__(self, config, pokedex):
+        self.pokedex = pokedex
         self.config = config
         self.token = config.get('SLACK_TOKEN')
         self.channels = config.get('CHANNELS')
@@ -51,6 +52,8 @@ class PokelertBot(object):
 
     def alert_slack(self):
         for poke in self.new_pokemon():
+            pokemon_id = str(poke['pokemon_id'])
+            poke["pokedex_info"] = self.pokedex[pokemon_id]
             alert = alert_factory.generate_alert('nearby', poke)
             self.send_message(alert)
 

@@ -12,7 +12,8 @@ def parse_args():
 if __name__ == '__main__':
     args = parse_args()
     config = yaml.load(open(args.config or 'config.yaml', 'r'))
-    plbot = PokelertBot(config)
+    pokedex = yaml.load(open('pokedex.yaml', 'r'))
+    plbot = PokelertBot(config, pokedex)
     try:
         plbot.start()
     except KeyboardInterrupt:
