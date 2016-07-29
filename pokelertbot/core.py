@@ -1,17 +1,11 @@
 import requests
 import time
-from datetime import datetime
+import alert_factory
 from slackclient import SlackClient
 
 class PokelertBot(object):
 
     def __init__(self, config):
-        """
-        Params:
-            SLACK_TOKEN: auth token generated from Slack
-            CHANNELS: list of channels (i.e, ['general', 'random']) to alert on
-            DEBUG: (optional: defaults to False)
-        """
         self.config = config
         self.token = config.get('SLACK_TOKEN')
         self.channels = config.get('CHANNELS')
@@ -30,12 +24,12 @@ class PokelertBot(object):
             self.alert_slack()
             time.sleep(.1)
 
-    def send_message(self, message, attachments=None, channel=None):
+    def send_message(self, message, channel=None):
         if channel is None:
             for channel in self.channels:
-                self.sc.api_call('chat.postMessage', channel=channel, text=message, as_user=True, attachments=attachments, mrk_dwn=True)
+                self.sc.api_call('chat.postMessage', channel=channel, text=message['text'], as_user=True, attachments=message['attachments'], mrk_dwn=True)
         else:
-            self.sc.api_call('chat.postMessage', channel=channel, text=message, as_user=True, attachments=attachments)
+            self.sc.api_call('chat.postMessage', channel=channel, text=message['text'], as_user=True, attachments=message['attachments'])
 
     def input(self, message):
         if 'message' != message['type']:
@@ -56,49 +50,9 @@ class PokelertBot(object):
         return new_list
 
     def alert_slack(self):
-        for p in self.new_pokemon():
-            message_dict = self.generate_message(p)
-            self.send_message(message_dict['text'], attachments=message_dict['attachments'])
-
-    def generate_message(self, pokemon):
-        name = pokemon['pokemon_name']
-        id = str(pokemon['pokemon_id']).zfill(3)
-        url = 'https://fevgames.net/pokedex/{}-{}/'.format(id, name)
-        
-        text = u'Wild *<{}|{}>* appeared!'.format(url, name) 
-        attachments = self.generate_attachments(pokemon)
-        return { 'text': text, 'attachments': attachments}
-        
-    def generate_attachments(self, pokemon):
-        attachments = \
-        [{
-            'fallback':'Error',
-            'color':'#439FE0',            
-            'fields':self.generate_fields(pokemon),
-            'thumb_url':'http://pogo.ethanhoneycutt.com/static/larger-icons/{}.png'.format(pokemon['pokemon_id']),
-            'footer':'<{}|Github>'.format('https://github.com/okcompuder/Pokelert'),
-            'footer_icon':'http://androidforum.cz/images/icons/hw/ext/pokemon_go.png'
-        }]
-        return attachments
-        
-    def generate_fields(self, pokemon):
-        gmaps = 'http://maps.google.com/maps?q={},{}&24z'.format(pokemon['latitude'], pokemon['longitude'])
-        location = "<{}|Map>".format(gmaps)        
-        time = self.format_time(pokemon['disappear_time'])
-               
-        fields = [{ 'title':'Location', 'value':location, 'short':'true' }, 
-                  { 'title':'Time Remaining', 'value':time, 'short':'true' },
-                  { 'title':'Type', 'value':'Kanto', 'short':'true' },
-                  { 'title':'Attack/Defense/Stamina', 'value':'94/90/80', 'short':'true' }
-                  ]
-        return fields
-        
-    def format_time(self, timestamp):
-        seconds = (datetime.fromtimestamp(timestamp / 1e3) - datetime.now()).total_seconds()
-        minutes = (seconds % 3600) // 60
-        seconds = seconds % 60
-        time = "%i Minutes %i Seconds" % (minutes, seconds)
-        return time
+        for poke in self.new_pokemon():
+            alert = alert_factory.generate_alert('nearby', poke)
+            self.send_message(alert)
 
     def retrieve_pokemon(self):
         URL = self.config.get('ENDPOINT_URL') + '/raw_data?gyms=false&pokestops=false&scanned=false'
