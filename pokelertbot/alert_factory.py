@@ -1,46 +1,56 @@
 from datetime import datetime
 
-def generate_alert(alert_type, pokemon):
-    alert = nearby_alert(pokemon)
-    return alert
+class AlertFactory(object):
 
-def nearby_alert(pokemon):
-    text = u'Wild *{}* appeared!'.format(pokemon['pokemon_name'])
-    attachments = nearby_attachments(pokemon)
-    return { 'text': text, 'attachments': attachments}
+    def __init__(self, config):
+        self.config = config
 
-def nearby_attachments(pokemon):
-    id = str(pokemon['pokemon_id']).zfill(3)
-    url = 'https://fevgames.net/pokedex/{}-{}/'.format(id, pokemon['pokemon_name'])
-    attachments = \
-    [{
-        'fallback':'Error',
-        'color':'#439FE0',
-        'author_name': 'Scan',
-        'author_link': url,
-        'fields': nearby_fields(pokemon),
-        'thumb_url':'http://pogo.ethanhoneycutt.com/static/larger-icons/{}.png'.format(pokemon['pokemon_id']),
-        'footer':'<{}|Github>'.format('https://github.com/okcompuder/Pokelert'),
-        'footer_icon':'http://androidforum.cz/images/icons/hw/ext/pokemon_go.png'
-    }]
-    return attachments
+    def generate_alert(self, alert_type, pokemon):
+        alert = self.nearby_alert(pokemon)
+        return alert
 
-def nearby_fields(pokemon):
-    gmaps = 'http://maps.google.com/maps?q={},{}&24z'.format(pokemon['latitude'], pokemon['longitude'])
-    location = '<{}|Map>'.format(gmaps)
-    time = format_time(pokemon['disappear_time'])
-    types = ' '.join(pokemon['pokedex_info']['Types'])
+    def nearby_alert(self, pokemon):
+        text = u'Wild *{}* appeared!'.format(pokemon['pokemon_name'])
+        attachments = self.nearby_attachments(pokemon)
+        return { 'text': text, 'attachments': attachments}
 
-    fields = [{ 'title':'Location', 'value':location, 'short':'true' },
-              { 'title':'Time Remaining', 'value':time, 'short':'true' },
-              { 'title':'Type', 'value':types, 'short':'true' },
-              { 'title':'Attack/Defense/Stamina', 'value':'94/90/80', 'short':'true' }
-             ]
-    return fields
+    def nearby_attachments(self, pokemon):
+        id = str(pokemon['pokemon_id']).zfill(3)
+        url = 'https://fevgames.net/pokedex/{}-{}/'.format(id, pokemon['pokemon_name'])
+        attachments = \
+        [{
+            'fallback':'Error',
+            'color':'#439FE0',
+            'author_name': 'Scan',
+            'author_link': url,
+            'fields': self.nearby_fields(pokemon),
+            'thumb_url':'http://pogo.ethanhoneycutt.com/static/larger-icons/{}.png'.format(pokemon['pokemon_id']),
+            'footer':'<{}|Github>'.format('https://github.com/okcompuder/Pokelert'),
+            'footer_icon':'http://androidforum.cz/images/icons/hw/ext/pokemon_go.png'
+        }]
+        return attachments
 
-def format_time(timestamp):
-    seconds = (datetime.fromtimestamp(timestamp / 1e3) - datetime.now()).total_seconds()
-    minutes = (seconds % 3600) // 60
-    seconds = seconds % 60
-    time = "%i Minutes %i Seconds" % (minutes, seconds)
-    return time
+    def nearby_fields(self, pokemon):
+        gmaps = 'http://maps.google.com/maps?q={},{}&24z'.format(pokemon['latitude'], pokemon['longitude'])
+        distance = self.format_distance(self.config['LATITUDE'], self.config['LOGITUDE'])
+        location = '<{}|{}>'.format(gmaps, distance)
+        time = self.format_time(pokemon['disappear_time'])
+        types = ' '.join(pokemon['pokedex_info']['Types'])
+
+        fields = [\
+                  { 'title':'Location', 'value':location, 'short':'true' },
+                  { 'title':'Time Remaining', 'value':time, 'short':'true' },
+                  { 'title':'Type', 'value':types, 'short':'true' },
+                  { 'title':'Attack/Defense/Stamina', 'value':'94/90/80', 'short':'true' }
+                 ]
+        return fields
+
+    def format_distance(self, lat, long):
+        return '400 Feet NW'
+
+    def format_time(self, timestamp):
+        seconds = (datetime.fromtimestamp(timestamp / 1e3) - datetime.now()).total_seconds()
+        minutes = (seconds % 3600) // 60
+        seconds = seconds % 60
+        time = "%i Minutes %i Seconds" % (minutes, seconds)
+        return time

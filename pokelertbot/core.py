@@ -1,6 +1,6 @@
 import requests
 import time
-import alert_factory
+from alert_factory import AlertFactory
 from slackclient import SlackClient
 
 class PokelertBot(object):
@@ -11,6 +11,7 @@ class PokelertBot(object):
         self.token = config.get('SLACK_TOKEN')
         self.channels = config.get('CHANNELS')
         self.sc = SlackClient(self.token)
+        self.af = AlertFactory(self.config)
         self.pokemon_cache = []
 
     def start(self):
@@ -54,7 +55,7 @@ class PokelertBot(object):
         for poke in self.new_pokemon():
             pokemon_id = str(poke['pokemon_id'])
             poke["pokedex_info"] = self.pokedex[pokemon_id]
-            alert = alert_factory.generate_alert('nearby', poke)
+            alert = self.af.generate_alert('nearby', poke)
             self.send_message(alert)
 
     def retrieve_pokemon(self):
