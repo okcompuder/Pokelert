@@ -1,300 +1,301 @@
 '1':
-  Types: [Grass, Poison]
+  Types: Grass, Poison
+
 '2':
-  Types: [Grass, Poison]
+  Types: Grass, Poison
 '3':
-  Types: [Grass, Poison]
+  Types: Grass, Poison
 '4':
-  Types: [Fire]
+  Types: Fire
 '5':
-  Types: [Fire]
+  Types: Fire
 '6':
-  Types: [Fire]
+  Types: Fire
 '7':
-  Types: [Water]
+  Types: Water
 '8':
-  Types: [Water]
+  Types: Water
 '9':
-  Types: [Water]
+  Types: Water
 '10':
-  Types: [Bug]
+  Types: Bug
 '11':
-  Types: [Bug]
+  Types: Bug
 '12':
-  Types: [Bug, Flying]
+  Types: Bug, Flying
 '13':
-  Types: [Bug, Poison]
+  Types: Bug, Poison
 '14':
-  Types: [Bug, Poison]
+  Types: Bug, Poison
 '15':
-  Types: [Bug, Poison]
+  Types: Bug, Poison
 '16':
-  Types: [Normal, Flying]
+  Types: Normal, Flying
 '17':
-  Types: [Normal, Flying]
+  Types: Normal, Flying
 '18':
-  Types: [Normal, Flying]
+  Types: Normal, Flying
 '19':
-  Types: [Normal]
+  Types: Normal
 '20':
-  Types: [Normal]
+  Types: Normal
 '21':
-  Types: [Normal, Flying]
+  Types: Normal, Flying
 '22':
-  Types: [Normal, Flying]
+  Types: Normal, Flying
 '23':
-  Types: [Poison]
+  Types: Poison
 '24':
-  Types: [Poison]
+  Types: Poison
 '25':
-  Types: [Electric]
+  Types: Electric
 '26':
-  Types: [Electric]
+  Types: Electric
 '27':
-  Types: [Ground]
+  Types: Ground
 '28':
-  Types: [Ground]
+  Types: Ground
 '29':
-  Types: [Poison]
+  Types: Poison
 '30':
-  Types: [Poison]
+  Types: Poison
 '31':
-  Types: [Poison, Ground]
+  Types: Poison, Ground
 '33':
-  Types: [Poison]
+  Types: Poison
 '34':
-  Types: [Poison, Ground]
+  Types: Poison, Ground
 '35':
-  Types: [Fairy]
+  Types: Fairy
 '36':
-  Types: [Fairy]
+  Types: Fairy
 '37':
-  Types: [Fire]
+  Types: Fire
 '38':
-  Types: [Fire]
+  Types: Fire
 '39':
-  Types: [Normal, Fairy]
+  Types: Normal, Fairy
 '40':
-  Types: [Normal, Fairy]
+  Types: Normal, Fairy
 '41':
-  Types: [Poison, Flying]
+  Types: Poison, Flying
 '42':
-  Types: [Poison, Flying]
+  Types: Poison, Flying
 '43':
-  Types: [Grass, Poison]
+  Types: Grass, Poison
 '44':
-  Types: [Grass, Poison]
+  Types: Grass, Poison
 '45':
-  Types: [Grass, Poison]
+  Types: Grass, Poison
 '46':
-  Types: [Bug, Grass]
+  Types: Bug, Grass
 '47':
-  Types: [Bug, Grass]
+  Types: Bug, Grass
 '48':
-  Types: [Bug, Poison]
+  Types: Bug, Poison
 '49':
-  Types: [Bug, Poison]
+  Types: Bug, Poison
 '50':
-  Types: [Ground]
+  Types: Ground
 '51':
-  Types: [Ground]
+  Types: Ground
 '52':
-  Types: [Normal]
+  Types: Normal
 '53':
-  Types: [Normal]
+  Types: Normal
 '54':
-  Types: [Water]
+  Types: Water
 '55':
-  Types: [Water]
+  Types: Water
 '56':
-  Types: [Fighting]
+  Types: Fighting
 '57':
-  Types: [Fighting]
+  Types: Fighting
 '58':
-  Types: [Fire]
+  Types: Fire
 '59':
-  Types: [Fire]
+  Types: Fire
 '60':
-  Types: [Water]
+  Types: Water
 '61':
-  Types: [Water]
+  Types: Water
 '62':
-  Types: [Water, Fighting]
+  Types: Water, Fighting
 '63':
-  Types: [Psychic]
+  Types: Psychic
 '64':
-  Types: [Psychic]
+  Types: Psychic
 '65':
-  Types: [Psychic]
+  Types: Psychic
 '66':
-  Types: [Fighting]
+  Types: Fighting
 '67':
-  Types: [Fighting]
+  Types: Fighting
 '68':
-  Types: [Fighting]
+  Types: Fighting
 '69':
-  Types: [Grass, Poison]
+  Types: Grass, Poison
 '70':
-  Types: [Grass, Poison]
+  Types: Grass, Poison
 '71':
-  Types: [Grass, Poison]
+  Types: Grass, Poison
 '72':
-  Types: [Water, Poison]
+  Types: Water, Poison
 '73':
-  Types: [Water, Poison]
+  Types: Water, Poison
 '74':
-  Types: [Rock, Ground]
+  Types: Rock, Ground
 '75':
-  Types: [Rock, Ground]
+  Types: Rock, Ground
 '76':
-  Types: [Rock, Ground]
+  Types: Rock, Ground
 '77':
-  Types: [Fire]
+  Types: Fire
 '78':
-  Types: [Fire]
+  Types: Fire
 '79':
-  Types: [Water, Psychic]
+  Types: Water, Psychic
 '80':
-  Types: [Water, Psychic]
+  Types: Water, Psychic
 '81':
-  Types: [Electric, Steel]
+  Types: Electric, Steel
 '82':
-  Types: [Electric, Steel]
+  Types: Electric, Steel
 '83':
-  Types: [Normal, Flying]
+  Types: Normal, Flying
 '84':
-  Types: [Normal, Flying]
+  Types: Normal, Flying
 '85':
-  Types: [Normal, Flying]
+  Types: Normal, Flying
 '86':
-  Types: [Water]
+  Types: Water
 '87':
-  Types: [Water, Ice]
+  Types: Water, Ice
 '88':
-  Types: [Poison]
+  Types: Poison
 '89':
-  Types: [Poison]
+  Types: Poison
 '90':
-  Types: [Water]
+  Types: Water
 '91':
-  Types: [Water, Ice]
+  Types: Water, Ice
 '92':
-  Types: [Ghost, Poison]
+  Types: Ghost, Poison
 '93':
-  Types: [Ghost, Poison]
+  Types: Ghost, Poison
 '94':
-  Types: [Ghost, Poison]
+  Types: Ghost, Poison
 '95':
-  Types: [Rock, Ground]
+  Types: Rock, Ground
 '96':
-  Types: [Psychic]
+  Types: Psychic
 '97':
-  Types: [Psychic]
+  Types: Psychic
 '98':
-  Types: [Water]
+  Types: Water
 '99':
-  Types: [Water]
+  Types: Water
 '100':
-  Types: [Electric]
+  Types: Electric
 '101':
-  Types: [Electric]
+  Types: Electric
 '102':
-  Types: [Grass, Psychic]
+  Types: Grass, Psychic
 '103':
-  Types: [Grass, Psychic]
+  Types: Grass, Psychic
 '104':
-  Types: [Ground]
+  Types: Ground
 '105':
-  Types: [Ground]
+  Types: Ground
 '106':
-  Types: [Fighting]
+  Types: Fighting
 '107':
-  Types: [Fighting]
+  Types: Fighting
 '108':
-  Types: [Normal]
+  Types: Normal
 '109':
-  Types: [Poison]
+  Types: Poison
 '110':
-  Types: [Poison]
+  Types: Poison
 '111':
-  Types: [Ground, Rock]
+  Types: Ground, Rock
 '112':
-  Types: [Ground, Rock]
+  Types: Ground, Rock
 '113':
-  Types: [Normal]
+  Types: Normal
 '114':
-  Types: [Grass]
+  Types: Grass
 '115':
-  Types: [Normal]
+  Types: Normal
 '116':
-  Types: [Water]
+  Types: Water
 '117':
-  Types: [Water]
+  Types: Water
 '118':
-  Types: [Water]
+  Types: Water
 '119':
-  Types: [Water]
+  Types: Water
 '120':
-  Types: [Water]
+  Types: Water
 '121':
-  Types: [Water, Psychic]
+  Types: Water, Psychic
 '122':
-  Types: [Psychic, Fairy]
+  Types: Psychic, Fairy
 '123':
-  Types: [Bug, Flying]
+  Types: Bug, Flying
 '124':
-  Types: [Ice, Psychic]
+  Types: Ice, Psychic
 '125':
-  Types: [Electric]
+  Types: Electric
 '126':
-  Types: [Fire]
+  Types: Fire
 '127':
-  Types: [Bug]
+  Types: Bug
 '128':
-  Types: [Normal]
+  Types: Normal
 '129':
-  Types: [Water]
+  Types: Water
 '130':
-  Types: [Water, Flying]
+  Types: Water, Flying
 '131':
-  Types: [Water, Ice]
+  Types: Water, Ice
 '132':
-  Types: [Normal]
+  Types: Normal
 '133':
-  Types: [Normal]
+  Types: Normal
 '134':
-  Types: [Water]
+  Types: Water
 '135':
-  Types: [Electric]
+  Types: Electric
 '136':
-  Types: [Fire]
+  Types: Fire
 '137':
-  Types: [Normal]
+  Types: Normal
 '138':
-  Types: [Rock, Water]
+  Types: Rock, Water
 '139':
-  Types: [Rock, Water]
+  Types: Rock, Water
 '140':
-  Types: [Rock, Water]
+  Types: Rock, Water
 '141':
-  Types: [Rock, Water]
+  Types: Rock, Water
 '142':
-  Types: [Rock, Flying]
+  Types: Rock, Flying
 '143':
-  Types: [Normal]
+  Types: Normal
 '144':
-  Types: [Ice, Flying]
+  Types: Ice, Flying
 '145':
-  Types: [Electric, Flying]
+  Types: Electric, Flying
 '146':
-  Types: [Fire, Flying]
+  Types: Fire, Flying
 '147':
-  Types: [Dragon]
+  Types: Dragon
 '148':
-  Types: [Dragon]
+  Types: Dragon
 '149':
-  Types: [Dragon, Flying]
+  Types: Dragon, Flying
 '150':
-  Types: [Psychic]
+  Types: Psychic
 '151':
-  Types: [Psychic]
+  Types: Psychic
