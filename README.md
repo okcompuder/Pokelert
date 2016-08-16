@@ -23,3 +23,11 @@ CHANNELS: ['pogo']
 
 ## Use
 Run *main.py* to activate bot in channel
+
+## Screenshot
+![Screenshot](/pokelert.png?raw=true "Slack Alerts")
+
+*Location links to Google Maps 
+
+*Location distance text and Attack/Defense/Stamina are placeholders
+
